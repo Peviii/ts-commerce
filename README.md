@@ -1,3 +1,3 @@
 # ts-commerce
 
-uma API de e-commerce reescrita em typescript
+uma API de e-commerce reescrita em typescript.
