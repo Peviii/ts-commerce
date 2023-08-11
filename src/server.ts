@@ -3,6 +3,7 @@ import orderRoute from './routes/order.route';
 import cartRoute from './routes/cart.route';
 import prodRoute from './routes/product.route';
 import userRoute from './routes/user.route';
+import notificationRoute from './routes/notification.route';
 
 export function Server() {
     const app = express();
@@ -12,7 +13,8 @@ export function Server() {
     app.use(userRoute);
     app.use(prodRoute);
     app.use(cartRoute);
-    app.use(orderRoute)
+    app.use(orderRoute);
+    app.use(notificationRoute);
  // app.use(paymentRoute);
     return app;
 }
