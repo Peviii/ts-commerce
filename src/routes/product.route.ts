@@ -5,7 +5,8 @@ import {
     getProdValidation,
     getProdsValidation,
     updateProdValidation,
-    deleteProdValidation
+    deleteProdValidation,
+    getProdsPerFilter
 } from '../validation/product.validation';
 import * as ProductController from '../controllers/product.controller';
 
@@ -13,6 +14,7 @@ const prodRoute = express.Router();
 
 prodRoute.post('/products/add', validate(createProdValitation), ProductController.createProduct);
 prodRoute.get('/products/all', validate(getProdsValidation), ProductController.findProducts);
+prodRoute.get('/products/:brandName/brand', validate(getProdsPerFilter), ProductController.findProductsPerBrand);
 prodRoute.get('/products/:id', validate(getProdValidation), ProductController.findProduct);
 prodRoute.put('/products/:id/update', validate(updateProdValidation), ProductController.updateProduct);
 prodRoute.delete('/products/:id/delete', validate(deleteProdValidation), ProductController.deleteProduct);
