@@ -26,6 +26,9 @@ export const createProdValitation = z.object({
         price: z.string({
             required_error: "Price is required",
         }),
+        brand: z.string({
+            required_error: 'brand is required',
+        }),
    })
 });
 
@@ -34,6 +37,13 @@ export const getProdValidation = z.object({
 });
 
 export const getProdsValidation = z.object({});
+
+const paramsSchema = z.object({
+    brandName: z.string({}),
+})
+export const getProdsPerFilter = z.object({
+    params: paramsSchema,
+});
 
 export const updateProdValidation = z.object({
     params,
@@ -56,6 +66,9 @@ export const updateProdValidation = z.object({
         price: z.string({
             required_error: "Price is required",
         }),
+        brand: z.string({
+            required_error: 'brand is required',
+        }),
    }).partial(),
 });
 
@@ -66,5 +79,6 @@ export const deleteProdValidation = z.object({
 export type createValidProduct = Omit<z.TypeOf<typeof createProdValitation>, "body">;
 export type getValidProduct = z.TypeOf<typeof getProdValidation>;
 export type getValidProducts = z.TypeOf<typeof getProdsValidation>;
+export type getProdsByFilter = z.TypeOf<typeof getProdsPerFilter>;
 export type updateValidProduct = z.TypeOf<typeof updateProdValidation>;
 export type deleteValidProduct = z.TypeOf<typeof getProdValidation>;

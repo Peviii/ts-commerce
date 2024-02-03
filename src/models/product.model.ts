@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { brandT } from './brand.model';
 
 export interface productT extends mongoose.Document {
     title: string;
@@ -6,7 +7,8 @@ export interface productT extends mongoose.Document {
     img: string;
     qtd: number;
     category: Array<Text>;
-    price: string
+    price: string;
+    brand: brandT['_id'];
 }
 
 const productSchema = new mongoose.Schema({
@@ -15,7 +17,8 @@ const productSchema = new mongoose.Schema({
     img: { type: String, required: true },
     qtd: { type: Number, required: true },
     category: { type: Array },
-    price: { type: String, required: true }
+    price: { type: String, required: true },
+    brand: { type: mongoose.Schema.Types.ObjectId, ref: 'brand', required: true }
 }, { timestamps: true });
 
 const Product = mongoose.model<productT>("Product", productSchema);

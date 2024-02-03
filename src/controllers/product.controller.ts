@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
-import { createValidProduct, deleteValidProduct, getValidProduct, getValidProducts, updateValidProduct } from '../validation/product.validation';
-import { CreateNewProduct, FindOneProduct, FindAllProducts, UpdateProduct, DeleteProduct } from '../services/product.service';
+import { createValidProduct, deleteValidProduct, getProdsByFilter, getValidProduct, getValidProducts, updateValidProduct } from '../validation/product.validation';
+import { CreateNewProduct, FindOneProduct, FindAllProducts, UpdateProduct, DeleteProduct, FindProductsPerWeek, FindProductsPerBrand } from '../services/product.service';
+import Brand from 'models/brand.model';
+
 
 export async function createProduct(req: Request<createValidProduct>, res: Response) {
     try {
@@ -23,8 +25,28 @@ export async function findProduct(req: Request<getValidProduct["params"]>, res: 
 
 export async function findProducts(req: Request<getValidProducts>, res: Response) {
     try {
-        const products = await FindAllProducts();
+        const products = await FindAllProducts({});
         return res.status(200).json(products);
+    } catch (error: any) {
+        return res.status(400).json(error);
+    }
+}
+
+export async function findProductsPerBrand(req: Request<getProdsByFilter["params"]>, res: Response) {
+    try {
+        const brandName = req.params.brandName as string;
+        const products = await FindProductsPerBrand({}, brandName);
+        return res.status(200).json(products);
+    } catch (error: any) {
+        return res.status(400).json(error);
+    }
+}
+
+export async function findProductsPerWeek(req: Request<getValidProducts>, res: Response) {
+    try {
+        const weeks: number = parseInt(req.query.weeks as string, 10);
+        const product = await FindProductsPerWeek({}, weeks);
+        return res.status(200).json(product);
     } catch (error: any) {
         return res.status(400).json(error);
     }
